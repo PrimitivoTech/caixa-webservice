@@ -1,0 +1,19 @@
+{
+    "name": "primitivo/caixa-webservice",
+    "description": "Package to emit brazilian boletos on Caixa bank",
+    "type": "libray",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matheus Lopes Santos",
+            "email": "fale_com_lopez@hotmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Primitivo\\Caixa\\": "src/"
+        }
+    }
+}
