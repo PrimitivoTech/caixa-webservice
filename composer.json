@@ -27,5 +27,14 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+    },
+    "scripts": {
+        "fix": [
+            "./vendor/bin/pint"
+        ],
+        "verify": [
+            "./vendor/bin/pint --test",
+            "./vendor/bin/phpstan analyse"
+        ]
     }
 }
