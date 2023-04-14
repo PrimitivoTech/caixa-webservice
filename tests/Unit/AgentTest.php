@@ -1,8 +1,8 @@
 <?php
 
-use Primitivo\Caixa\Agente;
-
 use function PHPUnit\Framework\assertEquals;
+
+use Primitivo\Caixa\Agente;
 
 it('should ensure that name and document are required for a new instance', function () {
     $agente = new Agente('João da Silva', '27431897111');
