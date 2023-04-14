@@ -6,6 +6,8 @@ use Carbon\Carbon;
 
 class Boleto
 {
+    protected const MOEDA = '09';
+
     protected string $convenio;
 
     protected string $cnpjBeneficiario;
@@ -29,8 +31,6 @@ class Boleto
     protected ?string $aposVencimento;
 
     protected int $diasAposVencimento = 1;
-
-    protected int $codigoMoeda = 9;
 
     protected array $fichaCompensacao = [];
 
