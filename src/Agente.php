@@ -49,6 +49,16 @@ class Agente
 
     public function setDocumento(string $documento): void
     {
+        $documento = Helpers::unmask($documento);
+
+        if (strlen($documento) == 11 && !Helpers::isCpf($documento)) {
+            throw new InvalidArgumentException('Documento apresentado é inválido: CPF');
+        }
+
+        if (strlen($documento) == 14 && !Helpers::isCnpj($documento)) {
+            throw new InvalidArgumentException('Documento apresentado é inválido: CNPJ');
+        }
+
         $this->documento = $documento;
     }
 }
