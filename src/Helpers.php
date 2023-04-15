@@ -4,7 +4,7 @@ namespace Primitivo\Caixa;
 
 class Helpers
 {
-    public static function unmask(string $text = null): string
+    public static function unmask(string $text): string
     {
         return preg_replace('/[\-\|\(\)\/\.\: ]/', '', $text);
     }
@@ -17,7 +17,7 @@ class Helpers
         return str_replace($search, $replace, $text);
     }
 
-    public static function isCnpj(?string $cnpj): bool
+    public static function isCnpj(string $cnpj): bool
     {
         $valid = true;
         $cnpj  = str_pad(self::unmask($cnpj), 14, '0', STR_PAD_LEFT);
@@ -27,42 +27,41 @@ class Helpers
         }
 
         for ($x = 0; $x < 10; $x++) {
-            if ($cnpj == str_repeat($x, 14)) {
-                $valid = false;
+            if ($cnpj == str_repeat((string)$x, 14)) {
+                return false;
             }
         }
 
-        if ($valid) {
-            if (strlen($cnpj) != 14) {
+        if (strlen($cnpj) != 14) {
+            return false;
+        }
+
+        for ($t = 12; $t < 14; $t++) {
+            $d = 0;
+            $c = 0;
+
+            for ($m = $t - 7; $m >= 2; $m--, $c++) {
+                $d += $cnpj[$c] * $m;
+            }
+
+            for ($m = 9; $m >= 2; $m--, $c++) {
+                $d += $cnpj[$c] * $m;
+            }
+
+            $d = ((10 * $d) % 11) % 10;
+
+            if ($cnpj[$c] != $d) {
                 $valid = false;
-            } else {
-                for ($t = 12; $t < 14; $t++) {
-                    $d = 0;
-                    $c = 0;
 
-                    for ($m = $t - 7; $m >= 2; $m--, $c++) {
-                        $d += $cnpj[$c] * $m;
-                    }
-
-                    for ($m = 9; $m >= 2; $m--, $c++) {
-                        $d += $cnpj[$c] * $m;
-                    }
-
-                    $d = ((10 * $d) % 11) % 10;
-
-                    if ($cnpj[$c] != $d) {
-                        $valid = false;
-
-                        break;
-                    }
-                }
+                break;
             }
         }
+
 
         return $valid;
     }
 
-    public static function isCpf(?string $cpf): bool
+    public static function isCpf(string $cpf): bool
     {
         $valid = true;
         $cpf   = str_pad(self::unmask($cpf), 11, '0', STR_PAD_LEFT);
@@ -72,30 +71,28 @@ class Helpers
         }
 
         for ($x = 0; $x < 10; $x++) {
-            if ($cpf == str_repeat($x, 11)) {
-                $valid = false;
+            if ($cpf == str_repeat((string)$x, 11)) {
+                return false;
             }
         }
 
-        if ($valid) {
-            if (strlen($cpf) != 11) {
+        if (strlen($cpf) != 11) {
+            return false;
+        }
+
+        for ($t = 9; $t < 11; $t++) {
+            $d = 0;
+
+            for ($c = 0; $c < $t; $c++) {
+                $d += $cpf[$c] * (($t + 1) - $c);
+            }
+
+            $d = ((10 * $d) % 11) % 10;
+
+            if ($cpf[$c] != $d) {
                 $valid = false;
-            } else {
-                for ($t = 9; $t < 11; $t++) {
-                    $d = 0;
 
-                    for ($c = 0; $c < $t; $c++) {
-                        $d += $cpf[$c] * (($t + 1) - $c);
-                    }
-
-                    $d = ((10 * $d) % 11) % 10;
-
-                    if ($cpf[$c] != $d) {
-                        $valid = false;
-
-                        break;
-                    }
-                }
+                break;
             }
         }
 

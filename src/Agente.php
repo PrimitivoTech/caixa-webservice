@@ -162,9 +162,15 @@ class Agente
 
     public function setCep(?string $cep): static
     {
+        if (!$cep) {
+            $this->cep = null;
+
+            return $this;
+        }
+
         $cep = Helpers::unmask($cep);
 
-        if ($cep && strlen($cep) != 8) {
+        if (strlen($cep) != 8) {
             throw new InvalidArgumentException('O CEP deve ter 8 caracteres.');
         }
 

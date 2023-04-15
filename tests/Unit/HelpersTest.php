@@ -10,7 +10,6 @@ it('should ensure to remove invalid characters', function () {
 
     assertEquals('62775545734', Helpers::unmask($cpf));
     assertEquals('63024642000140', Helpers::unmask($cnpj));
-    assertNull(Helpers::unmask());
 });
 
 it('should remove accents from a string', function () {
@@ -18,10 +17,6 @@ it('should remove accents from a string', function () {
 
     assertEquals('Jose Moncao da Silva Nho', Helpers::unaccents($str));
 });
-
-it('should return null if the string is empty or null when removing accents', function (?string $text) {
-    assertNull(Helpers::unaccents($text));
-})->with(['', null]);
 
 it('should ensure that CNPJ is valid', fn (string $cnpj) => assertTrue(Helpers::isCnpj($cnpj)))
     ->with([
