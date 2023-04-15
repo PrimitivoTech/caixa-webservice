@@ -3,6 +3,7 @@
 namespace Primitivo\Caixa;
 
 use InvalidArgumentException;
+use Primitivo\Caixa\Enums\UF;
 
 class Agente
 {
@@ -16,7 +17,7 @@ class Agente
 
     protected ?string $cidade = null;
 
-    protected ?string $estado = null;
+    protected ?UF $estado = null;
 
     protected ?string $cep = null;
 
@@ -116,6 +117,30 @@ class Agente
         $this->cidade = strtoupper(
             Helpers::unaccents($cidade)
         );
+
+        return $this;
+    }
+
+    public function getEstado(): ?UF
+    {
+        return $this->estado;
+    }
+
+    public function setEstado(UF | string $estado = null): static
+    {
+        if ($estado instanceof UF || is_null($estado)) {
+            $this->estado = $estado;
+
+            return $this;
+        }
+
+        $estado = strtoupper($estado);
+
+        if (!$estado = UF::tryFrom($estado)) {
+            throw new InvalidArgumentException('O estado é invalido. Você deve force a sigla do estado ou um enum do tipo ' . UF::class);
+        }
+
+        $this->estado = $estado;
 
         return $this;
     }

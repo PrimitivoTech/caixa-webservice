@@ -1,8 +1,11 @@
 <?php
 
+use Primitivo\Caixa\Enums\UF;
 use function PHPUnit\Framework\assertEquals;
 
 use Primitivo\Caixa\Agente;
+use function PHPUnit\Framework\assertInstanceOf;
+use function PHPUnit\Framework\assertNull;
 
 it('should ensure that name and document are required for a new instance', function () {
     $agente = new Agente('João da Silva', '27431897111');
@@ -76,3 +79,30 @@ it('should ensure that cidade must be in uppercase and without accents', functio
 
     assertEquals('SAO PAULO', $agente->getCidade());
 });
+
+it('should set an state or null on the estado field', function (?UF $estado) {
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setEstado($estado);
+
+    $result = $agente->getEstado();
+
+    is_null($estado)
+        ? assertNull($result)
+        : assertInstanceOf(UF::class, $result);
+
+})->with([UF::MINAS_GERAIS, null]);
+
+it('should convert a string to enum when setting state', function (string $estado) {
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setEstado($estado);
+
+    assertInstanceOf(UF::class, $agente->getEstado());
+})->with(['MG', 'sp']);
+
+it('should throw an exception if state does not match with enum values', function (?string $estado) {
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('O estado é invalido. Você deve force a sigla do estado ou um enum do tipo ' . UF::class);
+
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setEstado($estado);
+})->with(['Minas Gerais']);
