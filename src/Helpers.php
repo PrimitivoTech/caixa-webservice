@@ -4,28 +4,20 @@ namespace Primitivo\Caixa;
 
 class Helpers
 {
-    public static function unmask(?string $text = null): string | null
+    public static function unmask(string $text = null): string
     {
-        if (!$text) {
-            return null;
-        }
-
         return preg_replace('/[\-\|\(\)\/\.\: ]/', '', $text);
     }
 
-    public static function unaccents(?string $text = null): string | null
+    public static function unaccents(string $text): string
     {
-        if (!$text) {
-            return null;
-        }
-
         $search  = explode(",", "ç,æ,œ,á,é,í,ó,ú,à,ã,è,ì,ò,ù,ä,ë,ï,ö,õ,ü,ÿ,â,ê,î,ô,û,å,ø,Ø,Å,Á,À,Â,Ä,Ã,È,É,Ê,Ë,Í,Î,Ï,Ì,Ò,Ó,Ô,Ö,Ú,Ù,Û,Ü,Ÿ,Ç,Æ,Œ");
         $replace = explode(",", "c,ae,oe,a,e,i,o,u,a,a,e,i,o,u,a,e,i,o,o,u,y,a,e,i,o,u,a,o,O,A,A,A,A,A,A,E,E,E,E,I,I,I,I,O,O,O,O,U,U,U,U,Y,C,AE,OE");
 
         return str_replace($search, $replace, $text);
     }
 
-    public static function isCnpj($cnpj): bool
+    public static function isCnpj(?string $cnpj): bool
     {
         $valid = true;
         $cnpj  = str_pad(self::unmask($cnpj), 14, '0', STR_PAD_LEFT);
@@ -70,7 +62,7 @@ class Helpers
         return $valid;
     }
 
-    public static function isCpf($cpf): bool
+    public static function isCpf(?string $cpf): bool
     {
         $valid = true;
         $cpf   = str_pad(self::unmask($cpf), 11, '0', STR_PAD_LEFT);

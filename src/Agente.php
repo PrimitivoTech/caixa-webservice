@@ -38,9 +38,7 @@ class Agente
             throw new InvalidArgumentException('O nome deve conter, no máximo, 40 caracteres.');
         }
 
-        $this->nome = strtoupper(
-            Helpers::unaccents($nome)
-        );
+        $this->nome = strtoupper(Helpers::unaccents($nome));
 
         return $this;
     }
@@ -74,13 +72,17 @@ class Agente
 
     public function setLogradouro(?string $logradouro): static
     {
-        if ($logradouro && strlen($logradouro) > 40) {
+        if (!$logradouro) {
+            $this->logradouro = null;
+
+            return $this;
+        }
+
+        if (strlen($logradouro) > 40) {
             throw new InvalidArgumentException('O logradouro deve ter no máximo 40 caracteres');
         }
 
-        $this->logradouro = strtoupper(
-            Helpers::unaccents($logradouro)
-        );
+        $this->logradouro = strtoupper(Helpers::unaccents($logradouro));
 
         return $this;
     }
@@ -92,13 +94,17 @@ class Agente
 
     public function setBairro(?string $bairro): static
     {
-        if ($bairro && strlen($bairro) > 15) {
+        if (!$bairro) {
+            $this->bairro = null;
+
+            return $this;
+        }
+
+        if (strlen($bairro) > 15) {
             throw new InvalidArgumentException('O bairro deve ter no máximo 15 caracteres');
         }
 
-        $this->bairro = strtoupper(
-            Helpers::unaccents($bairro)
-        );
+        $this->bairro = strtoupper(Helpers::unaccents($bairro));
 
         return $this;
     }
@@ -110,13 +116,17 @@ class Agente
 
     public function setCidade(?string $cidade): Agente
     {
-        if ($cidade && strlen($cidade) > 15) {
+        if (!$cidade) {
+            $this->cidade = null;
+
+            return $this;
+        }
+
+        if (strlen($cidade) > 15) {
             throw new InvalidArgumentException('A cidade deve ter no máximo 15 caracteres');
         }
 
-        $this->cidade = strtoupper(
-            Helpers::unaccents($cidade)
-        );
+        $this->cidade = strtoupper(Helpers::unaccents($cidade));
 
         return $this;
     }
