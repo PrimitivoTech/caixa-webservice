@@ -37,7 +37,9 @@ class Agente
             throw new InvalidArgumentException('O nome deve conter, no máximo, 40 caracteres.');
         }
 
-        $this->nome = $nome;
+        $this->nome = strtoupper(
+            Helpers::unaccents($nome)
+        );
 
         return $this;
     }
@@ -73,8 +75,26 @@ class Agente
             throw new InvalidArgumentException('O logradouro deve ter no máximo 40 caracteres');
         }
 
-        $this->logradouro = $logradouro;
+        $this->logradouro = strtoupper(
+            Helpers::unaccents($logradouro)
+        );
 
         return $this;
+    }
+
+    public function getBairro(): ?string
+    {
+        return $this->bairro;
+    }
+
+    public function setBairro(?string $bairro): void
+    {
+        if ($bairro && strlen($bairro) > 15) {
+            throw new InvalidArgumentException('O bairro deve ter no máximo 15 caracteres');
+        }
+
+        $this->bairro = strtoupper(
+            Helpers::unaccents($bairro)
+        );
     }
 }

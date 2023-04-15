@@ -7,7 +7,7 @@ use Primitivo\Caixa\Agente;
 it('should ensure that name and document are required for a new instance', function () {
     $agente = new Agente('João da Silva', '27431897111');
 
-    assertEquals('João da Silva', $agente->getNome());
+    assertEquals('JOAO DA SILVA', $agente->getNome());
     assertEquals('27431897111', $agente->getDocumento());
 });
 
@@ -38,4 +38,11 @@ it('should ensure that logradouro does not have more than forty chars', function
 
     $agente = new Agente('João da Silva', '27431897111');
     $agente->setLogradouro(str_repeat('a', 41));
+});
+
+it('should ensure that logradouro must be in uppercase and without accents', function () {
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setLogradouro('Rua João Carroceiro');
+
+    assertEquals('RUA JOAO CARROCEIRO', $agente->getLogradouro());
 });
