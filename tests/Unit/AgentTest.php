@@ -1,11 +1,9 @@
 <?php
 
-use Primitivo\Caixa\Enums\UF;
-use function PHPUnit\Framework\assertEquals;
-
 use Primitivo\Caixa\Agente;
-use function PHPUnit\Framework\assertInstanceOf;
-use function PHPUnit\Framework\assertNull;
+use Primitivo\Caixa\Enums\UF;
+
+use function PHPUnit\Framework\{assertEquals, assertInstanceOf, assertNull};
 
 it('should ensure that name and document are required for a new instance', function () {
     $agente = new Agente('João da Silva', '27431897111');
@@ -89,7 +87,6 @@ it('should set an state or null on the estado field', function (?UF $estado) {
     is_null($estado)
         ? assertNull($result)
         : assertInstanceOf(UF::class, $result);
-
 })->with([UF::MINAS_GERAIS, null]);
 
 it('should convert a string to enum when setting state', function (string $estado) {
@@ -106,3 +103,18 @@ it('should throw an exception if state does not match with enum values', functio
     $agente = new Agente('João da Silva', '27431897111');
     $agente->setEstado($estado);
 })->with(['Minas Gerais']);
+
+it('should throw an exception if cep length is different from 8 chars', function (string $cep) {
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('O CEP deve ter 8 caracteres.');
+
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setCep($cep);
+})->with(['39400', '39401-4042']);
+
+it('remove mask from cep before check its length', function () {
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setCep('39400-000');
+
+    assertEquals('39400000', $agente->getCep());
+});

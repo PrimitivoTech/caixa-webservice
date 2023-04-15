@@ -144,4 +144,22 @@ class Agente
 
         return $this;
     }
+
+    public function getCep(): ?string
+    {
+        return $this->cep;
+    }
+
+    public function setCep(?string $cep): static
+    {
+        $cep = Helpers::unmask($cep);
+
+        if ($cep && strlen($cep) != 8) {
+            throw new InvalidArgumentException('O CEP deve ter 8 caracteres.');
+        }
+
+        $this->cep = $cep;
+
+        return $this;
+    }
 }
