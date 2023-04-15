@@ -1,8 +1,8 @@
 <?php
 
-use Primitivo\Caixa\Helpers;
-
 use function PHPUnit\Framework\{assertEquals, assertFalse, assertNull, assertTrue};
+
+use Primitivo\Caixa\Helpers;
 
 it('should ensure to remove invalid characters', function () {
     $cpf  = '627.755.457-34';
@@ -46,7 +46,7 @@ it('should ensure that CNPJ is invalid', fn (string $cnpj) => assertFalse(Helper
         '99.999.999/9999-99',
         '63.024.642',
         'abcdef',
-        '123456789012345'
+        '123456789012345',
     ]);
 
 it('should ensure that CPF is valid', fn (string $cpf) => assertTrue(Helpers::isCpf($cpf)))
@@ -72,5 +72,5 @@ it('should ensure that CPF is invalid', fn (string $cpf) => assertFalse(Helpers:
         '999.999.999-99',
         '570.616.604',
         'abcdef',
-        '123456789012'
+        '123456789012',
     ]);

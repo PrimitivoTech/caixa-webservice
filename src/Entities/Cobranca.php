@@ -9,5 +9,6 @@ class Cobranca
         protected readonly string $linhaDigitavel,
         protected readonly string $nossoNumero,
         protected readonly string $urlBoleto
-    ) {}
+    ) {
+    }
 }

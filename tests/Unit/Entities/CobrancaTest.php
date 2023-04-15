@@ -1,8 +1,8 @@
 <?php
 
-use Primitivo\Caixa\Entities\Cobranca;
-
 use function PHPUnit\Framework\assertTrue;
+
+use Primitivo\Caixa\Entities\Cobranca;
 
 it('should ensure that properties are readonly', function () {
     $cobranca = new Cobranca(

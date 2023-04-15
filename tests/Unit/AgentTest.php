@@ -1,9 +1,10 @@
 <?php
 
-use Primitivo\Caixa\Agente;
-use Primitivo\Caixa\Enums\UF;
-
 use function PHPUnit\Framework\{assertEquals, assertInstanceOf, assertNull};
+
+use Primitivo\Caixa\Agente;
+
+use Primitivo\Caixa\Enums\UF;
 
 it('should ensure that name and document are required for a new instance', function () {
     $agente = new Agente('João da Silva', '27431897111');
