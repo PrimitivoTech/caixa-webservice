@@ -13,9 +13,8 @@ it('should ensure that properties are readonly', function () {
     );
 
     $reflection = new ReflectionClass($cobranca);
-    $properties = $reflection->getProperties();
 
-    foreach ($properties as $property) {
+    foreach ($reflection->getProperties() as $property) {
         assertTrue($property->isReadOnly());
     }
 });
