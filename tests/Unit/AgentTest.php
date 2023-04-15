@@ -46,3 +46,33 @@ it('should ensure that logradouro must be in uppercase and without accents', fun
 
     assertEquals('RUA JOAO CARROCEIRO', $agente->getLogradouro());
 });
+
+it('should ensure that bairro does not have more than fifteen chars', function () {
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('O bairro deve ter no máximo 15 caracteres');
+
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setBairro(str_repeat('a', 16));
+});
+
+it('should ensure that bairro must be in uppercase and without accents', function () {
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setBairro('Maracanã');
+
+    assertEquals('MARACANA', $agente->getBairro());
+});
+
+it('should ensure that cidade does not have more than fifteen chars', function () {
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('A cidade deve ter no máximo 15 caracteres');
+
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setCidade(str_repeat('a', 16));
+});
+
+it('should ensure that cidade must be in uppercase and without accents', function () {
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setCidade('São Paulo');
+
+    assertEquals('SAO PAULO', $agente->getCidade());
+});

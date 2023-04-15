@@ -49,7 +49,7 @@ class Agente
         return $this->documento;
     }
 
-    public function setDocumento(string $documento): void
+    public function setDocumento(string $documento): static
     {
         $documento = Helpers::unmask($documento);
 
@@ -62,6 +62,8 @@ class Agente
         }
 
         $this->documento = $documento;
+
+        return $this;
     }
 
     public function getLogradouro(): ?string
@@ -87,7 +89,7 @@ class Agente
         return $this->bairro;
     }
 
-    public function setBairro(?string $bairro): void
+    public function setBairro(?string $bairro): static
     {
         if ($bairro && strlen($bairro) > 15) {
             throw new InvalidArgumentException('O bairro deve ter no máximo 15 caracteres');
@@ -96,5 +98,25 @@ class Agente
         $this->bairro = strtoupper(
             Helpers::unaccents($bairro)
         );
+
+        return $this;
+    }
+
+    public function getCidade(): ?string
+    {
+        return $this->cidade;
+    }
+
+    public function setCidade(?string $cidade): Agente
+    {
+        if ($cidade && strlen($cidade) > 15) {
+            throw new InvalidArgumentException('A cidade deve ter no máximo 15 caracteres');
+        }
+
+        $this->cidade = strtoupper(
+            Helpers::unaccents($cidade)
+        );
+
+        return $this;
     }
 }
