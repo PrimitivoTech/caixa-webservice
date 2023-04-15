@@ -61,4 +61,20 @@ class Agente
 
         $this->documento = $documento;
     }
+
+    public function getLogradouro(): ?string
+    {
+        return $this->logradouro;
+    }
+
+    public function setLogradouro(?string $logradouro): static
+    {
+        if ($logradouro && strlen($logradouro) > 40) {
+            throw new InvalidArgumentException('O logradouro deve ter no máximo 40 caracteres');
+        }
+
+        $this->logradouro = $logradouro;
+
+        return $this;
+    }
 }

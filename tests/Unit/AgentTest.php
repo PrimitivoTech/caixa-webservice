@@ -31,3 +31,11 @@ it('should ensure that document is a valid CNPJ', function () {
 
     new Agente('João da Silva', '11111111111111');
 });
+
+it('should ensure that logradouro does not have more than forty chars', function () {
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('O logradouro deve ter no máximo 40 caracteres');
+
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setLogradouro(str_repeat('a', 41));
+});
