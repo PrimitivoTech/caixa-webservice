@@ -1,10 +1,9 @@
 <?php
 
-use function PHPUnit\Framework\{assertEquals, assertInstanceOf, assertNull};
-
 use Primitivo\Caixa\Agente;
-
 use Primitivo\Caixa\Enums\UF;
+
+use function PHPUnit\Framework\{assertEquals, assertInstanceOf, assertNull};
 
 it('should ensure that name and document are required for a new instance', function () {
     $agente = new Agente('João da Silva', '27431897111');
@@ -34,6 +33,13 @@ it('should ensure that document is a valid CNPJ', function () {
     new Agente('João da Silva', '11111111111111');
 });
 
+it('should set logradouro as null', function () {
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setLogradouro(null);
+
+    assertNull($agente->getLogradouro());
+});
+
 it('should ensure that logradouro does not have more than forty chars', function () {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('O logradouro deve ter no máximo 40 caracteres');
@@ -47,6 +53,13 @@ it('should ensure that logradouro must be in uppercase and without accents', fun
     $agente->setLogradouro('Rua João Carroceiro');
 
     assertEquals('RUA JOAO CARROCEIRO', $agente->getLogradouro());
+});
+
+it('should set bairro as null', function () {
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setBairro(null);
+
+    assertNull($agente->getBairro());
 });
 
 it('should ensure that bairro does not have more than fifteen chars', function () {
@@ -64,6 +77,13 @@ it('should ensure that bairro must be in uppercase and without accents', functio
     assertEquals('MARACANA', $agente->getBairro());
 });
 
+it('should set cidade as null', function () {
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setCidade(null);
+
+    assertNull($agente->getCidade());
+});
+
 it('should ensure that cidade does not have more than fifteen chars', function () {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('A cidade deve ter no máximo 15 caracteres');
@@ -79,16 +99,21 @@ it('should ensure that cidade must be in uppercase and without accents', functio
     assertEquals('SAO PAULO', $agente->getCidade());
 });
 
-it('should set an state or null on the estado field', function (?UF $estado) {
+it('should set cep as null', function () {
     $agente = new Agente('João da Silva', '27431897111');
-    $agente->setEstado($estado);
+    $agente->setCep(null);
+
+    assertNull($agente->getCep());
+});
+
+it('should set an state or null on the estado field', function () {
+    $agente = new Agente('João da Silva', '27431897111');
+    $agente->setEstado(UF::MINAS_GERAIS);
 
     $result = $agente->getEstado();
 
-    is_null($estado)
-        ? assertNull($result)
-        : assertInstanceOf(UF::class, $result);
-})->with([UF::MINAS_GERAIS, null]);
+    assertInstanceOf(UF::class, $result);
+});
 
 it('should convert a string to enum when setting state', function (string $estado) {
     $agente = new Agente('João da Silva', '27431897111');
