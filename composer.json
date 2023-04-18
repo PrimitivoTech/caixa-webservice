@@ -40,10 +40,11 @@
         "fix": "./vendor/bin/pint",
         "refacto": "rector",
         "test:unit": "pest --colors=always",
+        "test:types": "./vendor/bin/phpstan analyse --ansi",
         "verify": [
             "@test:refacto",
             "./vendor/bin/pint --test",
-            "./vendor/bin/phpstan analyse --ansi"
+            "@test:types"
         ]
     }
 }
