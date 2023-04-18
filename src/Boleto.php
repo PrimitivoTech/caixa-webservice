@@ -58,6 +58,10 @@ class Boleto
 
     public function setConvenio(string $convenio): static
     {
+        if (strlen($convenio) > 7) {
+            throw new InvalidArgumentException('O convênio deve ter no máximo 7 caracteres.');
+        }
+
         $this->convenio = str_pad($convenio, 7, '0', STR_PAD_LEFT);
 
         return $this;

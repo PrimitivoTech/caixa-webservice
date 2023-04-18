@@ -4,6 +4,14 @@ use Primitivo\Caixa\Boleto;
 
 use function PHPUnit\Framework\assertEquals;
 
+it('should throw an exception if convenio length is greater than seven', function () {
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('O convênio deve ter no máximo 7 caracteres.');
+
+    $boleto = new Boleto();
+    $boleto->setConvenio(str_repeat('a', 8));
+});
+
 it('should set the convenio', function () {
     $boleto = new Boleto();
     $boleto->setConvenio(1234567);
