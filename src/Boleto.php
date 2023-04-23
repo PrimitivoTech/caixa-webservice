@@ -135,4 +135,16 @@ class Boleto
 
         return $this;
     }
+
+    public function getValor(): float
+    {
+        return $this->valor;
+    }
+
+    public function setValor(float $valor): static
+    {
+        $this->valor = (float)number_format($valor, 2, '.', '');
+
+        return $this;
+    }
 }

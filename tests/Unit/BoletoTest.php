@@ -99,3 +99,13 @@ it('should set numeroDocumento field', function () {
 
     assertEquals('12345678901', $boleto->getNumeroDocumento());
 });
+
+it('should set valor field', function ($value, $expected) {
+    $boleto = new Boleto();
+    $boleto->setValor($value);
+
+    assertEquals($expected, $boleto->getValor());
+})->with([
+    'Integer Value' => [123, 123.00],
+    'Float Value'   => [123.45, 123.45],
+]);
