@@ -1,8 +1,10 @@
 <?php
 
+use Carbon\Carbon;
 use Primitivo\Caixa\Boleto;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertInstanceOf;
 
 it('should throw an exception if convenio length is greater than seven', function () {
     $this->expectException(InvalidArgumentException::class);
@@ -69,4 +71,16 @@ it('should set nossoNumero', function () {
     $boleto->setNossoNumero('14123456789012345');
 
     assertEquals('14123456789012345', $boleto->getNossoNumero());
+});
+
+it('should set vencimento property', function () {
+    $carbon = new Carbon();
+
+    $boleto = new Boleto();
+    $boleto->setVencimento($carbon);
+
+    $response = $boleto->getVencimento();
+
+    assertInstanceOf(Carbon::class, $response);
+    assertEquals($carbon, $response);
 });

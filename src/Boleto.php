@@ -107,4 +107,16 @@ class Boleto
 
         return $this;
     }
+
+    public function getVencimento(): Carbon
+    {
+        return $this->vencimento;
+    }
+
+    public function setVencimento(Carbon $vencimento): static
+    {
+        $this->vencimento = $vencimento;
+
+        return $this;
+    }
 }
