@@ -9,6 +9,7 @@ use InvalidArgumentException;
 use Primitivo\Caixa\Enums\Aceite;
 use Primitivo\Caixa\Enums\Especie;
 use Primitivo\Caixa\Enums\Operacao;
+use Primitivo\Caixa\Enums\PosVencimento;
 use Primitivo\Caixa\Enums\VersaoBoleto;
 
 class Boleto
@@ -39,7 +40,7 @@ class Boleto
 
     protected float $abatimento = 0.00;
 
-    protected ?string $aposVencimento;
+    protected ?PosVencimento $aposVencimento = null;
 
     protected int $diasAposVencimento = 1;
 
@@ -194,6 +195,18 @@ class Boleto
     public function setAbatimento(float $abatimento): static
     {
         $this->abatimento = (float)number_format($abatimento, 2, '.', '');
+
+        return $this;
+    }
+
+    public function getAposVencimento(): ?PosVencimento
+    {
+        return $this->aposVencimento;
+    }
+
+    public function setAposVencimento(?PosVencimento $aposVencimento): static
+    {
+        $this->aposVencimento = $aposVencimento;
 
         return $this;
     }

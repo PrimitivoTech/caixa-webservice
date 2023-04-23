@@ -2,12 +2,13 @@
 
 use Carbon\Carbon;
 use Primitivo\Caixa\Boleto;
-
 use Primitivo\Caixa\Enums\Aceite;
 use Primitivo\Caixa\Enums\Especie;
+use Primitivo\Caixa\Enums\PosVencimento;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertInstanceOf;
+use function PHPUnit\Framework\assertNull;
 
 it('should throw an exception if convenio length is greater than seven', function () {
     $this->expectException(InvalidArgumentException::class);
@@ -148,3 +149,18 @@ it('should set abatimento field', function ($value, $expected) {
     'Integer Value' => [123, 123.00],
     'Float Value'   => [123.45, 123.45],
 ]);
+
+it('should set aposVencimento instruction with PosVencimento enum', function () {
+    $boleto = new Boleto();
+    $boleto->setAposVencimento(PosVencimento::DEVOLVER);
+
+    assertInstanceOf(PosVencimento::class, $boleto->getAposVencimento());
+    assertEquals(PosVencimento::DEVOLVER, $boleto->getAposVencimento());
+});
+
+it('should set aposVencimento instruction with null', function () {
+    $boleto = new Boleto();
+    $boleto->setAposVencimento(null);
+
+    assertNull($boleto->getAposVencimento());
+});
