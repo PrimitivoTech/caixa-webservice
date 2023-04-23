@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Primitivo\Caixa\Boleto;
 
+use Primitivo\Caixa\Enums\Aceite;
 use Primitivo\Caixa\Enums\Especie;
 
 use function PHPUnit\Framework\assertEquals;
@@ -118,4 +119,12 @@ it('should set tipoEspecie field', function () {
 
     assertInstanceOf(Especie::class, $boleto->getTipoEspecie());
     assertEquals(Especie::DM, $boleto->getTipoEspecie());
+});
+
+it('should set aceite field', function () {
+    $boleto = new Boleto();
+    $boleto->setAceite(Aceite::SIM);
+
+    assertInstanceOf(Aceite::class, $boleto->getAceite());
+    assertEquals(Aceite::SIM, $boleto->getAceite());
 });

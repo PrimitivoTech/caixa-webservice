@@ -6,6 +6,7 @@ namespace Primitivo\Caixa;
 
 use Carbon\Carbon;
 use InvalidArgumentException;
+use Primitivo\Caixa\Enums\Aceite;
 use Primitivo\Caixa\Enums\Especie;
 use Primitivo\Caixa\Enums\Operacao;
 use Primitivo\Caixa\Enums\VersaoBoleto;
@@ -32,7 +33,7 @@ class Boleto
 
     protected Especie $tipoEspecie = Especie::DM;
 
-    protected string $aceite = 'N';
+    protected Aceite $aceite = Aceite::NAO;
 
     protected float $juros = 0.00;
 
@@ -157,6 +158,18 @@ class Boleto
     public function setTipoEspecie(Especie $tipoEspecie): static
     {
         $this->tipoEspecie = $tipoEspecie;
+
+        return $this;
+    }
+
+    public function getAceite(): Aceite
+    {
+        return $this->aceite;
+    }
+
+    public function setAceite(Aceite $aceite): static
+    {
+        $this->aceite = $aceite;
 
         return $this;
     }
