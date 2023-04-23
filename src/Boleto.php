@@ -87,4 +87,24 @@ class Boleto
 
         return $this;
     }
+
+    public function getNossoNumero(): string
+    {
+        return $this->nossoNumero;
+    }
+
+    public function setNossoNumero(string $nossoNumero): static
+    {
+        if (strlen($nossoNumero) != 17) {
+            throw new InvalidArgumentException('O nosso número deve ter 17 caracteres.');
+        }
+
+        if (!str_starts_with($nossoNumero, '14')) {
+            throw new InvalidArgumentException('O nosso número deve começar com 14.');
+        }
+
+        $this->nossoNumero = $nossoNumero;
+
+        return $this;
+    }
 }

@@ -47,3 +47,26 @@ it('should throw an exception if CNPJ is invalid', function (string $cnpj) {
     $boleto = new Boleto();
     $boleto->setCnpjBeneficiario($cnpj);
 })->with(['11.111.111/1111-11', '11.111.111', '111.111.111-11', '111.111.111']);
+
+it('should throw an exception if nossoNumero length is not equals to seventeen', function (string $nossoNumero) {
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('O nosso número deve ter 17 caracteres.');
+
+    $boleto = new Boleto();
+    $boleto->setNossoNumero($nossoNumero);
+})->with(['123456789012345678', '1234567890123456']);
+
+it('should throw an exception if nossoNumero does not starts with fourteen', function () {
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('O nosso número deve começar com 14.');
+
+    $boleto = new Boleto();
+    $boleto->setNossoNumero('12345678901234567');
+});
+
+it('should set nossoNumero', function () {
+    $boleto = new Boleto();
+    $boleto->setNossoNumero('14123456789012345');
+
+    assertEquals('14123456789012345', $boleto->getNossoNumero());
+});
