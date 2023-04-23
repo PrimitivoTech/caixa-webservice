@@ -119,4 +119,20 @@ class Boleto
 
         return $this;
     }
+
+    public function getNumeroDocumento(): string
+    {
+        return $this->numeroDocumento;
+    }
+
+    public function setNumeroDocumento(string $numeroDocumento): static
+    {
+        if (strlen($numeroDocumento) > 11) {
+            throw new InvalidArgumentException('O número do documento deve ter no máximo 11 caracteres.');
+        }
+
+        $this->numeroDocumento = $numeroDocumento;
+
+        return $this;
+    }
 }

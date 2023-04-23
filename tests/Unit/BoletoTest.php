@@ -84,3 +84,18 @@ it('should set vencimento property', function () {
     assertInstanceOf(Carbon::class, $response);
     assertEquals($carbon, $response);
 });
+
+it('should throw an exception if numeroDocumento length is greater than 11 chars', function () {
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('O número do documento deve ter no máximo 11 caracteres.');
+
+    $boleto = new Boleto();
+    $boleto->setNumeroDocumento(str_repeat('a', 12));
+});
+
+it('should set numeroDocumento field', function () {
+    $boleto = new Boleto();
+    $boleto->setNumeroDocumento('12345678901');
+
+    assertEquals('12345678901', $boleto->getNumeroDocumento());
+});
