@@ -138,3 +138,13 @@ it('should set juros field', function ($value, $expected) {
     'Integer Value' => [123, 123.00],
     'Float Value'   => [123.45, 123.45],
 ]);
+
+it('should set abatimento field', function ($value, $expected) {
+    $boleto = new Boleto();
+    $boleto->setAbatimento($value);
+
+    assertEquals($expected, $boleto->getAbatimento());
+})->with([
+    'Integer Value' => [123, 123.00],
+    'Float Value'   => [123.45, 123.45],
+]);

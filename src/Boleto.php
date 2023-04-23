@@ -185,4 +185,16 @@ class Boleto
 
         return $this;
     }
+
+    public function getAbatimento(): float
+    {
+        return $this->abatimento;
+    }
+
+    public function setAbatimento(float $abatimento): static
+    {
+        $this->abatimento = (float)number_format($abatimento, 2, '.', '');
+
+        return $this;
+    }
 }
