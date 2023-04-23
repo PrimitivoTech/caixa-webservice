@@ -173,4 +173,16 @@ class Boleto
 
         return $this;
     }
+
+    public function getJuros(): float
+    {
+        return $this->juros;
+    }
+
+    public function setJuros(float $juros): static
+    {
+        $this->juros = (float)number_format($juros, 2, '.', '');
+
+        return $this;
+    }
 }

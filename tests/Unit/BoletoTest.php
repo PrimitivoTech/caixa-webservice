@@ -128,3 +128,13 @@ it('should set aceite field', function () {
     assertInstanceOf(Aceite::class, $boleto->getAceite());
     assertEquals(Aceite::SIM, $boleto->getAceite());
 });
+
+it('should set juros field', function ($value, $expected) {
+    $boleto = new Boleto();
+    $boleto->setJuros($value);
+
+    assertEquals($expected, $boleto->getJuros());
+})->with([
+    'Integer Value' => [123, 123.00],
+    'Float Value'   => [123.45, 123.45],
+]);
