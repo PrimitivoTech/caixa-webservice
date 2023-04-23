@@ -3,6 +3,8 @@
 use Carbon\Carbon;
 use Primitivo\Caixa\Boleto;
 
+use Primitivo\Caixa\Enums\Especie;
+
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertInstanceOf;
 
@@ -109,3 +111,11 @@ it('should set valor field', function ($value, $expected) {
     'Integer Value' => [123, 123.00],
     'Float Value'   => [123.45, 123.45],
 ]);
+
+it('should set tipoEspecie field', function () {
+    $boleto = new Boleto();
+    $boleto->setTipoEspecie(Especie::DM);
+
+    assertInstanceOf(Especie::class, $boleto->getTipoEspecie());
+    assertEquals(Especie::DM, $boleto->getTipoEspecie());
+});
