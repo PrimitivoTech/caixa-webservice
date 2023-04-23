@@ -52,12 +52,11 @@ class Agente
     {
         $documento = Helpers::unmask($documento);
 
-        if (strlen($documento) == 11 && !Helpers::isCpf($documento)) {
-            throw new InvalidArgumentException('Documento apresentado é inválido: CPF');
-        }
+        $isCpf  = Helpers::isCpf($documento);
+        $isCnpj = Helpers::isCnpj($documento);
 
-        if (strlen($documento) == 14 && !Helpers::isCnpj($documento)) {
-            throw new InvalidArgumentException('Documento apresentado é inválido: CNPJ');
+        if (!$isCpf && !$isCnpj) {
+            throw new InvalidArgumentException('Documento apresentado é inválido.');
         }
 
         $this->documento = $documento;

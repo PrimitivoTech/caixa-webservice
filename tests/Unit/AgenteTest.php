@@ -21,14 +21,14 @@ it('should ensure that the name does not have more than forty chars for name', f
 
 it('should ensure that document is a valid CPF', function () {
     $this->expectException(InvalidArgumentException::class);
-    $this->expectExceptionMessage('Documento apresentado é inválido: CPF');
+    $this->expectExceptionMessage('Documento apresentado é inválido.');
 
     new Agente('João da Silva', '11111111111');
 });
 
 it('should ensure that document is a valid CNPJ', function () {
     $this->expectException(InvalidArgumentException::class);
-    $this->expectExceptionMessage('Documento apresentado é inválido: CNPJ');
+    $this->expectExceptionMessage('Documento apresentado é inválido.');
 
     new Agente('João da Silva', '11111111111111');
 });
