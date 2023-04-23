@@ -210,4 +210,24 @@ class Boleto
 
         return $this;
     }
+
+    public function getDiasAposVencimento(): int
+    {
+        return $this->diasAposVencimento;
+    }
+
+    public function setDiasAposVencimento(int $diasAposVencimento): static
+    {
+        if (is_null($this->aposVencimento)) {
+            throw new InvalidArgumentException('Você precisa informar a ação após o vencimento antes de setar os dias.');
+        }
+
+        if ($diasAposVencimento < 1 || $diasAposVencimento > 999) {
+            throw new InvalidArgumentException('Os dias após o vencimento devem estar entre 1 e 999.');
+        }
+
+        $this->diasAposVencimento = $diasAposVencimento;
+
+        return $this;
+    }
 }

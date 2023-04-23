@@ -164,3 +164,31 @@ it('should set aposVencimento instruction with null', function () {
 
     assertNull($boleto->getAposVencimento());
 });
+
+it('should throw an exception if trying to set diasAposVencimento without setting aposVencimento field', function () {
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('Você precisa informar a ação após o vencimento antes de setar os dias.');
+
+    $boleto = new Boleto();
+    $boleto->setDiasAposVencimento(1);
+});
+
+it('should throw an exception if diasAposVencimento is less than 1 or greater than 999', function ($number) {
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('Os dias após o vencimento devem estar entre 1 e 999.');
+
+    $boleto = new Boleto();
+    $boleto->setAposVencimento(PosVencimento::PROTESTAR);
+    $boleto->setDiasAposVencimento($number);
+})->with([
+    'Less than 1'      => [0],
+    'Greater than 999' => [1000],
+]);
+
+it('should set diasAposVencimento property', function () {
+    $boleto = new Boleto();
+    $boleto->setAposVencimento(PosVencimento::PROTESTAR);
+    $boleto->setDiasAposVencimento(1);
+
+    assertEquals(1, $boleto->getDiasAposVencimento());
+});
